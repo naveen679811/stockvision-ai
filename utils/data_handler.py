@@ -19,12 +19,28 @@ logger = logging.getLogger(__name__)
 
 # ── Popular stock presets ──────────────────────────────────────────────────────
 POPULAR_STOCKS = {
-    "NASDAQ": ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "TSLA", "META", "NFLX"],
-    "NSE":    ["TCS.NS", "RELIANCE.NS", "INFY.NS", "HDFCBANK.NS", "WIPRO.NS",
-               "BAJFINANCE.NS", "ICICIBANK.NS", "LT.NS"],
-    "Crypto": ["BTC-USD", "ETH-USD", "BNB-USD", "SOL-USD", "XRP-USD"],
+    "NASDAQ": [
+        "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "TSLA", "META", "NFLX",
+        "AMD", "INTC", "PYPL", "ADBE", "CSCO", "QCOM", "TXN", "UBER",
+        "ABNB", "SHOP", "SNAP", "TWTR", "COIN", "HOOD", "PLTR", "SOFI",
+    ],
+    "NSE": [
+        "TCS.NS", "RELIANCE.NS", "INFY.NS", "HDFCBANK.NS", "WIPRO.NS",
+        "BAJFINANCE.NS", "ICICIBANK.NS", "LT.NS", "SBIN.NS", "ADANIENT.NS",
+        "HINDUNILVR.NS", "ITC.NS", "KOTAKBANK.NS", "AXISBANK.NS", "MARUTI.NS",
+        "SUNPHARMA.NS", "TATAMOTORS.NS", "TATASTEEL.NS", "ONGC.NS", "NTPC.NS",
+        "POWERGRID.NS", "ULTRACEMCO.NS", "NESTLEIND.NS", "DRREDDY.NS", "CIPLA.NS",
+    ],
+    "NYSE": [
+        "JPM", "BAC", "WFC", "GS", "MS", "V", "MA", "JNJ", "PFE", "KO",
+        "PEP", "MCD", "DIS", "NKE", "BA", "GE", "XOM", "CVX", "WMT", "TGT",
+    ],
+    "Crypto": [
+        "BTC-USD", "ETH-USD", "BNB-USD", "SOL-USD", "XRP-USD",
+        "ADA-USD", "DOGE-USD", "MATIC-USD", "DOT-USD", "AVAX-USD",
+        "LINK-USD", "UNI-USD", "ATOM-USD", "LTC-USD", "BCH-USD",
+    ],
 }
-
 TIMEFRAME_MAP = {
     "1 Month":  ("1mo",  "1d"),
     "3 Months": ("3mo",  "1d"),
