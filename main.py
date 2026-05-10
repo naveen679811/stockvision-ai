@@ -261,22 +261,27 @@ if fetch_btn or (st.session_state.df_raw is None and ticker_input):
         try:
             st.session_state.ticker = ticker_input
             df_raw = fetch_stock_data(ticker_input, period=period_str, interval=interval)
-            df_ind = add_technical_indicators(df_raw)
-            df_sig = generate_trading_signals(df_ind)
-            info   = get_stock_info(ticker_input)
 
-            st.session_state.df_raw     = df_raw
-            st.session_state.df_ind     = df_ind
-            st.session_state.df_signals = df_sig
-            st.session_state.stock_info = info
-            st.session_state.period     = timeframe
+            if df_raw is None or len(df_raw) < 60:
+                st.sidebar.error(f"Not enough data for {ticker_input}. Try another stock.")
+            else:
+                df_ind = add_technical_indicators(df_raw)
+                df_sig = generate_trading_signals(df_ind)
+                info   = get_stock_info(ticker_input)
 
-            # Reset model state on new fetch
-            st.session_state.model  = None
-            st.session_state.metrics= {}
-            st.sidebar.success(f"✓ {len(df_raw)} rows loaded")
+                st.session_state.df_raw     = df_raw
+                st.session_state.df_ind     = df_ind
+                st.session_state.df_signals = df_sig
+                st.session_state.stock_info = info
+                st.session_state.period     = timeframe
+
+                st.session_state.model  = None
+                st.session_state.metrics= {}
+                st.sidebar.success(f"✓ {len(df_raw)} rows loaded")
+
         except Exception as e:
-            st.sidebar.error(f"Fetch error: {e}")
+            st.sidebar.error(f"Cannot fetch {ticker_input}. Try: AAPL, RELIANCE.NS, BTC-USD")
+            st.sidebar.info("Tips: NSE stocks need .NS — Example: SBIN.NS | Crypto needs -USD — Example: BTC-USD")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
