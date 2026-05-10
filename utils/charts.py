@@ -191,17 +191,21 @@ def macd_chart(df: pd.DataFrame, ticker: str) -> go.Figure:
 def bollinger_chart(df: pd.DataFrame, ticker: str) -> go.Figure:
     fig = _base_fig(title=f"<b>{ticker}</b> — Bollinger Bands", height=380)
 
+    bb_upper = df["BB_Upper"].tolist()
+    bb_lower = df["BB_Lower"].tolist()
+    dates = df.index.tolist()
+
     fig.add_trace(go.Scatter(
-        x=list(df.index) + list(reversed(df.index)),
-        y=list(df["BB_Upper"]) + list(reversed(df["BB_Lower"])),
+        x=dates + dates[::-1],
+        y=bb_upper + bb_lower[::-1],
         fill="toself", fillcolor="rgba(0,212,255,0.05)",
         line=dict(color="rgba(0,0,0,0)"), name="BB Band", hoverinfo="skip",
     ))
     for col, color, dash, name in [
-        ("BB_Upper",  THEME["red"],    "dot",   "Upper"),
-        ("BB_Middle", THEME["yellow"], "dash",  "Middle (SMA20)"),
-        ("BB_Lower",  THEME["green"],  "dot",   "Lower"),
-        ("Close",     THEME["accent"], "solid", "Price"),
+        ("BB_Upper",  "#FF4444", "dot",   "Upper"),
+        ("BB_Middle", "#FFD600", "dash",  "Middle (SMA20)"),
+        ("BB_Lower",  "#00E676", "dot",   "Lower"),
+        ("Close",     "#00D4FF", "solid", "Price"),
     ]:
         if col in df.columns:
             fig.add_trace(go.Scatter(
